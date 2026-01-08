@@ -31,16 +31,29 @@ const FindAMentor: React.FC = () => {
     fetchMentors();
   }, []);
 
+  // --- SAFE FILTER LOGIC ---
   const filteredMentors = mentors.filter(mentor => {
-    const matchesSearch = mentor.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                          mentor.skills.some(skill => skill.toLowerCase().includes(searchTerm.toLowerCase()));
-    const matchesSkill = skillFilter === 'all' || !skillFilter || mentor.skills.includes(skillFilter);
-    const matchesExperience = experienceFilter === 'all' || !experienceFilter || mentor.experience.includes(experienceFilter);
+    // 1. Safety checks: Ensure variables exist before using string methods
+    const safeName = (mentor.name || "").toLowerCase();
+    const safeSearch = (searchTerm || "").toLowerCase();
+    const safeSkills = Array.isArray(mentor.skills) ? mentor.skills : [];
+    const safeExperience = mentor.experience || "";
+
+    // 2. Match Logic
+    const matchesSearch = 
+      safeName.includes(safeSearch) ||
+      safeSkills.some(skill => (skill || "").toLowerCase().includes(safeSearch));
+
+    const matchesSkill = skillFilter === 'all' || !skillFilter || safeSkills.includes(skillFilter);
+    const matchesExperience = experienceFilter === 'all' || !experienceFilter || safeExperience.includes(experienceFilter);
 
     return matchesSearch && matchesSkill && matchesExperience;
   });
 
-  const allSkills = Array.from(new Set(mentors.flatMap(mentor => mentor.skills)));
+  // --- SAFE SKILLS EXTRACTION ---
+  const allSkills = Array.from(new Set(mentors.flatMap(mentor => 
+    Array.isArray(mentor.skills) ? mentor.skills : []
+  )));
 
   return (
     <Container>
@@ -118,51 +131,56 @@ const FindAMentor: React.FC = () => {
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredMentors.map(mentor => (
-              <GlassCard key={mentor.id} className="p-6 hover:bg-gray-800/50 transition-colors">
-                <div className="flex items-start space-x-4">
-                  <Avatar className="w-16 h-16">
-                    <AvatarImage src={mentor.avatar} alt={mentor.name} />
-                    <AvatarFallback className="bg-purple-600 text-white">
-                      {mentor.name.split(' ').map(n => n[0]).join('')}
-                    </AvatarFallback>
-                  </Avatar>
-                  <div className="flex-1">
-                    <h3 className="text-xl font-semibold text-white mb-1">{mentor.name}</h3>
-                    <p className="text-gray-300 text-sm mb-1">{mentor.title} at {mentor.company}</p>
-                    <p className="text-gray-400 text-sm mb-3">{mentor.experience} experience</p>
+            {filteredMentors.map(mentor => {
+              const currentSkills = Array.isArray(mentor.skills) ? mentor.skills : [];
+              const currentName = mentor.name || "Unknown Mentor";
 
-                    <div className="flex flex-wrap gap-1 mb-3">
-                      {mentor.skills.slice(0, 3).map(skill => (
-                        <Badge key={skill} variant="secondary" className="text-xs">
-                          {skill}
-                        </Badge>
-                      ))}
-                      {mentor.skills.length > 3 && (
-                        <Badge variant="secondary" className="text-xs">
-                          +{mentor.skills.length - 3} more
-                        </Badge>
-                      )}
-                    </div>
+              return (
+                <GlassCard key={mentor.id} className="p-6 hover:bg-gray-800/50 transition-colors">
+                  <div className="flex items-start space-x-4">
+                    <Avatar className="w-16 h-16">
+                      <AvatarImage src={mentor.avatar} alt={currentName} />
+                      <AvatarFallback className="bg-purple-600 text-white">
+                        {currentName.split(' ').map(n => n[0]).join('')}
+                      </AvatarFallback>
+                    </Avatar>
+                    <div className="flex-1">
+                      <h3 className="text-xl font-semibold text-white mb-1">{currentName} {mentor.title}</h3>
+                      <p className="text-gray-300 text-sm mb-1">At {mentor.company}</p>
+                      <p className="text-gray-400 text-sm mb-3">{mentor.experience} year experience</p>
 
-                    <p className="text-gray-300 text-sm mb-4 line-clamp-2">{mentor.bio}</p>
-
-                    <div className="flex items-center justify-between mb-4">
-                      <div className="flex items-center space-x-2">
-                        <span className="text-yellow-400">★</span>
-                        <span className="text-white font-medium">{mentor.rating}</span>
-                        <span className="text-gray-400 text-sm">({mentor.reviews} reviews)</span>
+                      <div className="flex flex-wrap gap-1 mb-3">
+                        {currentSkills.slice(0, 3).map(skill => (
+                          <Badge key={skill} variant="secondary" className="text-xs">
+                            {skill}
+                          </Badge>
+                        ))}
+                        {currentSkills.length > 3 && (
+                          <Badge variant="secondary" className="text-xs">
+                            +{currentSkills.length - 3} more
+                          </Badge>
+                        )}
                       </div>
-                      <span className="text-green-400 font-semibold">{mentor.price}</span>
-                    </div>
 
-                    <Button className="w-full bg-purple-600 hover:bg-purple-700 text-white">
-                      Start Mentorship
-                    </Button>
+                      <p className="text-gray-300 text-sm mb-4 line-clamp-2">{mentor.bio}</p>
+
+                      <div className="flex items-center justify-between mb-4">
+                        <div className="flex items-center">
+                          <span className="text-yellow-400">★ </span>
+                          <span className="text-white font-medium">{mentor.rating}</span>
+                          <span className="text-gray-400 text-sm">({mentor.reviews} reviews)</span>
+                        </div>
+                        <span className="text-green-400 font-semibold">${mentor.price}</span>
+                      </div>
+
+                      <Button className="w-full hover:cursor-pointer bg-purple-700 hover:bg-purple-700 shadow-lg hover:shadow-purple-700/70 text-white">
+                        Start Mentorship
+                      </Button>
+                    </div>
                   </div>
-                </div>
-              </GlassCard>
-            ))}
+                </GlassCard>
+              );
+            })}
           </div>
         )}
       </Section>

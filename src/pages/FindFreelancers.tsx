@@ -9,58 +9,7 @@ import { Star, Clock, MessageCircle, DollarSign, CheckCircle } from 'lucide-reac
 
 const FindFreelancers: React.FC = () => {
   const freelancers = [
-    {
-      id: 1,
-      name: 'Alex Thompson',
-      title: 'Full-Stack Developer',
-      rating: 4.9,
-      reviews: 156,
-      hourlyRate: 75,
-      skills: ['React', 'Node.js', 'PostgreSQL', 'AWS'],
-      experience: '8 years',
-      completedProjects: 47,
-      availability: 'Available for new projects',
-      avatar: '/placeholder.svg'
-    },
-    {
-      id: 2,
-      name: 'Lisa Park',
-      title: 'Frontend Developer',
-      rating: 4.8,
-      reviews: 203,
-      hourlyRate: 65,
-      skills: ['Vue.js', 'TypeScript', 'Tailwind CSS', 'Figma'],
-      experience: '6 years',
-      completedProjects: 62,
-      availability: 'Available in 2 weeks',
-      avatar: '/placeholder.svg'
-    },
-    {
-      id: 3,
-      name: 'Marcus Johnson',
-      title: 'Backend Developer',
-      rating: 5.0,
-      reviews: 89,
-      hourlyRate: 80,
-      skills: ['Python', 'Django', 'Docker', 'MongoDB'],
-      experience: '10 years',
-      completedProjects: 34,
-      availability: 'Available for new projects',
-      avatar: '/placeholder.svg'
-    },
-    {
-      id: 4,
-      name: 'Sarah Chen',
-      title: 'Mobile App Developer',
-      rating: 4.7,
-      reviews: 178,
-      hourlyRate: 70,
-      skills: ['React Native', 'Flutter', 'iOS', 'Android'],
-      experience: '7 years',
-      completedProjects: 53,
-      availability: 'Available for new projects',
-      avatar: '/placeholder.svg'
-    }
+    
   ];
 
   const projectTypes = [

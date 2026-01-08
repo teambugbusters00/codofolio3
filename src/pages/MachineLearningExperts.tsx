@@ -9,54 +9,7 @@ import { Star, Clock, MessageCircle, Video } from 'lucide-react';
 
 const MachineLearningExperts: React.FC = () => {
   const experts = [
-    {
-      id: 1,
-      name: 'Dr. Sarah Chen',
-      title: 'ML Research Scientist',
-      rating: 4.9,
-      reviews: 178,
-      price: 45,
-      skills: ['TensorFlow', 'PyTorch', 'Deep Learning', 'NLP'],
-      experience: '10 years',
-      availability: 'Available now',
-      avatar: '/placeholder.svg'
-    },
-    {
-      id: 2,
-      name: 'Alex Kumar',
-      title: 'Senior ML Engineer',
-      rating: 4.8,
-      reviews: 134,
-      price: 42,
-      skills: ['Scikit-learn', 'Computer Vision', 'MLOps', 'Python'],
-      experience: '7 years',
-      availability: 'In 15 min',
-      avatar: '/placeholder.svg'
-    },
-    {
-      id: 3,
-      name: 'Maria Gonzalez',
-      title: 'AI/ML Consultant',
-      rating: 5.0,
-      reviews: 245,
-      price: 48,
-      skills: ['Machine Learning', 'Data Science', 'AWS SageMaker', 'AutoML'],
-      experience: '12 years',
-      availability: 'Available now',
-      avatar: '/placeholder.svg'
-    },
-    {
-      id: 4,
-      name: 'David Park',
-      title: 'ML Solutions Architect',
-      rating: 4.7,
-      reviews: 156,
-      price: 46,
-      skills: ['Neural Networks', 'Reinforcement Learning', 'Big Data', 'Spark'],
-      experience: '9 years',
-      availability: 'Tomorrow',
-      avatar: '/placeholder.svg'
-    }
+    
   ];
 
   const topics = [

@@ -29,7 +29,7 @@ const Index = () => {
           <Container>
             <div className="max-w-6xl mx-auto">
               <div className="text-center mb-16">
-                <h1 className="text-5xl md:text-7xl font-bold mb-6 animate-fade-in">
+                <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 animate-fade-in">
                   Get <GradientText>Expert Help</GradientText> from Top Developers
                 </h1>
                 <p className="text-xl md:text-2xl text-muted-foreground mb-8 animate-fade-in-up delay-200 max-w-3xl mx-auto">
@@ -71,7 +71,7 @@ const Index = () => {
                   </p>
                   <div className="space-y-3">
                     <Link to="/find-mentor">
-                      <NeonButton variant="primary" size="md" className="w-full">
+                      <NeonButton variant="primary" size="md" className="w-full mb-5">
                         Find a Mentor
                       </NeonButton>
                     </Link>
@@ -90,13 +90,13 @@ const Index = () => {
                   <div className="w-20 h-20 rounded-full bg-gradient-accent flex items-center justify-center mx-auto mb-6">
                     <Code2 className="w-10 h-10 text-primary-foreground" />
                   </div>
-                  <h2 className="text-2xl font-bold mb-4">Expert Help</h2>
+                  <h2 className="text-2xl font-bol mb-4">Expert Help</h2>
                   <p className="text-muted-foreground mb-6 text-lg">
                     Get instant help from our expert directory. Filter by tech stack, start sessions instantly or schedule for later. Pay per 15-minute increment.
                   </p>
                   <div className="space-y-3">
                     <Link to="/find-experts">
-                      <NeonButton variant="primary" size="md" className="w-full">
+                      <NeonButton variant="primary" size="md" className="w-full mb-5">
                         Find Experts
                       </NeonButton>
                     </Link>
@@ -121,7 +121,7 @@ const Index = () => {
                   </p>
                   <div className="space-y-3">
                     <Link to="/find-freelancers">
-                      <NeonButton variant="primary" size="md" className="w-full">
+                      <NeonButton variant="primary" size="md" className="w-full mb-5">
                         Find Freelancers
                       </NeonButton>
                     </Link>
@@ -146,7 +146,7 @@ const Index = () => {
                   </p>
                   <div className="space-y-3">
                     <Link to="/teams">
-                      <NeonButton variant="primary" size="md" className="w-full">
+                      <NeonButton variant="primary" size="md" className="w-full mb-5">
                         Teams
                       </NeonButton>
                     </Link>
@@ -166,7 +166,7 @@ const Index = () => {
         <Section spacing="lg">
           <Container>
             <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">How It Works</h2>
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">How It Works</h2>
               <p className="text-lg text-muted-foreground">Simple steps to get the help you need</p>
             </div>
 

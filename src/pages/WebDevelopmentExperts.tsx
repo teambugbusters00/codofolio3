@@ -9,54 +9,7 @@ import { Star, Clock, MessageCircle, Video } from 'lucide-react';
 
 const WebDevelopmentExperts: React.FC = () => {
   const experts = [
-    {
-      id: 1,
-      name: 'Sarah Johnson',
-      title: 'Full-Stack Developer',
-      rating: 4.9,
-      reviews: 312,
-      price: 45,
-      skills: ['React', 'Node.js', 'TypeScript', 'MongoDB'],
-      experience: '7 years',
-      availability: 'Available now',
-      avatar: '/placeholder.svg'
-    },
-    {
-      id: 2,
-      name: 'Mike Chen',
-      title: 'Frontend Architect',
-      rating: 4.8,
-      reviews: 289,
-      price: 48,
-      skills: ['Vue.js', 'Angular', 'CSS', 'JavaScript'],
-      experience: '9 years',
-      availability: 'In 15 min',
-      avatar: '/placeholder.svg'
-    },
-    {
-      id: 3,
-      name: 'Emma Rodriguez',
-      title: 'Backend Developer',
-      rating: 5.0,
-      reviews: 198,
-      price: 46,
-      skills: ['Python', 'Django', 'PostgreSQL', 'AWS'],
-      experience: '8 years',
-      availability: 'Available now',
-      avatar: '/placeholder.svg'
-    },
-    {
-      id: 4,
-      name: 'David Kim',
-      title: 'DevOps Engineer',
-      rating: 4.7,
-      reviews: 176,
-      price: 50,
-      skills: ['Docker', 'Kubernetes', 'CI/CD', 'Cloud Platforms'],
-      experience: '10 years',
-      availability: 'Tomorrow',
-      avatar: '/placeholder.svg'
-    }
+    
   ];
 
   const technologies = [

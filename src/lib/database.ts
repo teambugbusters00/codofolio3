@@ -1,15 +1,17 @@
-import { databases } from './appwrite';
-import { ID, Query } from 'appwrite';
+import { databases } from './appwrite'; // Ensure appwrite.ts is in the same folder (src/lib/)
+import { Query } from 'appwrite';
 
-// Database and collection IDs (you'll need to create these in Appwrite console)
-export const DATABASE_ID = '695ee878003afaae3a93'; // Replace with actual database ID
-export const MENTORS_COLLECTION_ID = 'mentors';
+// Environment Variables
+export const DATABASE_ID = import.meta.env.VITE_APPWRITE_DATABASE_ID;
+export const MENTORS_COLLECTION_ID = 'mentors'; // Or use import.meta.env.VITE_MENTORS_COLLECTION_ID
 export const EXPERTS_COLLECTION_ID = 'experts';
 export const FREELANCERS_COLLECTION_ID = 'freelancers';
 
-// Mentor interface
+// --- Interfaces ---
+
 export interface Mentor {
-  id: string;
+  $id: string;
+  id: string;  
   name: string;
   title: string;
   company: string;
@@ -22,8 +24,8 @@ export interface Mentor {
   bio: string;
 }
 
-// Expert interface
 export interface Expert {
+  $id: string;
   id: string;
   name: string;
   title: string;
@@ -37,8 +39,8 @@ export interface Expert {
   bio: string;
 }
 
-// Freelancer interface
 export interface Freelancer {
+  $id: string;
   id: string;
   name: string;
   title: string;
@@ -52,17 +54,29 @@ export interface Freelancer {
   bio: string;
 }
 
-// Database service functions
+// --- Service Class ---
+
 export class DatabaseService {
-  // Mentors
+  
+  // 1. Mentors
   static async getMentors(): Promise<Mentor[]> {
     try {
       const response = await databases.listDocuments(
         DATABASE_ID,
         MENTORS_COLLECTION_ID,
-        [Query.limit(100)]
+        [
+            Query.limit(100),
+            Query.orderDesc('$createdAt') // Optional: Get newest first
+        ]
       );
-      return response.documents as unknown as Mentor[];
+      
+      // Map $id to id to ensure compatibility with your UI key={mentor.id}
+      const documents = response.documents.map(doc => ({
+        ...doc,
+        id: doc.$id 
+      })) as unknown as Mentor[];
+
+      return documents;
     } catch (error) {
       console.error('Error fetching mentors:', error);
       return [];
@@ -76,14 +90,14 @@ export class DatabaseService {
         MENTORS_COLLECTION_ID,
         id
       );
-      return response as unknown as Mentor;
+      return { ...response, id: response.$id } as unknown as Mentor;
     } catch (error) {
       console.error('Error fetching mentor:', error);
       return null;
     }
   }
 
-  // Experts
+  // 2. Experts
   static async getExperts(): Promise<Expert[]> {
     try {
       const response = await databases.listDocuments(
@@ -91,7 +105,12 @@ export class DatabaseService {
         EXPERTS_COLLECTION_ID,
         [Query.limit(100)]
       );
-      return response.documents as unknown as Expert[];
+      const documents = response.documents.map(doc => ({
+        ...doc,
+        id: doc.$id
+      })) as unknown as Expert[];
+      
+      return documents;
     } catch (error) {
       console.error('Error fetching experts:', error);
       return [];
@@ -105,14 +124,14 @@ export class DatabaseService {
         EXPERTS_COLLECTION_ID,
         id
       );
-      return response as unknown as Expert;
+      return { ...response, id: response.$id } as unknown as Expert;
     } catch (error) {
       console.error('Error fetching expert:', error);
       return null;
     }
   }
 
-  // Freelancers
+  // 3. Freelancers
   static async getFreelancers(): Promise<Freelancer[]> {
     try {
       const response = await databases.listDocuments(
@@ -120,7 +139,12 @@ export class DatabaseService {
         FREELANCERS_COLLECTION_ID,
         [Query.limit(100)]
       );
-      return response.documents as unknown as Freelancer[];
+      const documents = response.documents.map(doc => ({
+        ...doc,
+        id: doc.$id
+      })) as unknown as Freelancer[];
+      
+      return documents;
     } catch (error) {
       console.error('Error fetching freelancers:', error);
       return [];
@@ -134,7 +158,7 @@ export class DatabaseService {
         FREELANCERS_COLLECTION_ID,
         id
       );
-      return response as unknown as Freelancer;
+      return { ...response, id: response.$id } as unknown as Freelancer;
     } catch (error) {
       console.error('Error fetching freelancer:', error);
       return null;

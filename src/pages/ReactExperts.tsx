@@ -9,54 +9,7 @@ import { Star, Clock, MessageCircle, Video } from 'lucide-react';
 
 const ReactExperts: React.FC = () => {
   const experts = [
-    {
-      id: 1,
-      name: 'Alex Johnson',
-      title: 'Senior React Developer',
-      rating: 4.9,
-      reviews: 145,
-      price: 38,
-      skills: ['React', 'TypeScript', 'Next.js', 'Redux'],
-      experience: '7 years',
-      availability: 'Available now',
-      avatar: '/placeholder.svg'
-    },
-    {
-      id: 2,
-      name: 'Maria Garcia',
-      title: 'React Native Specialist',
-      rating: 4.8,
-      reviews: 98,
-      price: 42,
-      skills: ['React Native', 'Expo', 'Firebase', 'iOS/Android'],
-      experience: '6 years',
-      availability: 'In 1 hour',
-      avatar: '/placeholder.svg'
-    },
-    {
-      id: 3,
-      name: 'David Kim',
-      title: 'Full-Stack React Developer',
-      rating: 5.0,
-      reviews: 187,
-      price: 45,
-      skills: ['React', 'Node.js', 'GraphQL', 'AWS'],
-      experience: '9 years',
-      availability: 'Available now',
-      avatar: '/placeholder.svg'
-    },
-    {
-      id: 4,
-      name: 'Sophie Chen',
-      title: 'React Performance Expert',
-      rating: 4.7,
-      reviews: 134,
-      price: 40,
-      skills: ['React', 'Performance', 'Testing', 'Webpack'],
-      experience: '8 years',
-      availability: 'Tomorrow',
-      avatar: '/placeholder.svg'
-    }
+    
   ];
 
   const topics = [

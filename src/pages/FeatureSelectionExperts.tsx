@@ -9,54 +9,7 @@ import { Star, Clock, MessageCircle, Video } from 'lucide-react';
 
 const FeatureSelectionExperts: React.FC = () => {
   const experts = [
-    {
-      id: 1,
-      name: 'Dr. Maria Santos',
-      title: 'ML Feature Engineering Specialist',
-      rating: 4.9,
-      reviews: 198,
-      price: 48,
-      skills: ['Feature Selection', 'Scikit-learn', 'Pandas', 'NumPy'],
-      experience: '8 years',
-      availability: 'Available now',
-      avatar: '/placeholder.svg'
-    },
-    {
-      id: 2,
-      name: 'James Wilson',
-      title: 'Data Scientist',
-      rating: 4.8,
-      reviews: 167,
-      price: 46,
-      skills: ['Feature Engineering', 'Python', 'R', 'Statistical Analysis'],
-      experience: '10 years',
-      availability: 'In 30 min',
-      avatar: '/placeholder.svg'
-    },
-    {
-      id: 3,
-      name: 'Lisa Chen',
-      title: 'AI Research Engineer',
-      rating: 5.0,
-      reviews: 234,
-      price: 50,
-      skills: ['Deep Learning', 'Feature Extraction', 'TensorFlow', 'PyTorch'],
-      experience: '12 years',
-      availability: 'Available now',
-      avatar: '/placeholder.svg'
-    },
-    {
-      id: 4,
-      name: 'Robert Taylor',
-      title: 'Machine Learning Consultant',
-      rating: 4.7,
-      reviews: 145,
-      price: 44,
-      skills: ['Dimensionality Reduction', 'PCA', 'Feature Importance', 'XGBoost'],
-      experience: '9 years',
-      availability: 'Tomorrow',
-      avatar: '/placeholder.svg'
-    }
+    
   ];
 
   const techniques = [

@@ -9,54 +9,7 @@ import { Star, Clock, MessageCircle, Video } from 'lucide-react';
 
 const PythonExperts: React.FC = () => {
   const experts = [
-    {
-      id: 1,
-      name: 'Emma Wilson',
-      title: 'Senior Python Developer',
-      rating: 4.9,
-      reviews: 156,
-      price: 35,
-      skills: ['Python', 'Django', 'Flask', 'Data Science'],
-      experience: '8 years',
-      availability: 'Available now',
-      avatar: '/placeholder.svg'
-    },
-    {
-      id: 2,
-      name: 'Carlos Rodriguez',
-      title: 'Python Data Scientist',
-      rating: 4.8,
-      reviews: 112,
-      price: 40,
-      skills: ['Python', 'Pandas', 'NumPy', 'Machine Learning'],
-      experience: '6 years',
-      availability: 'In 30 min',
-      avatar: '/placeholder.svg'
-    },
-    {
-      id: 3,
-      name: 'Lisa Zhang',
-      title: 'Full-Stack Python Developer',
-      rating: 5.0,
-      reviews: 203,
-      price: 42,
-      skills: ['Python', 'FastAPI', 'PostgreSQL', 'Docker'],
-      experience: '9 years',
-      availability: 'Available now',
-      avatar: '/placeholder.svg'
-    },
-    {
-      id: 4,
-      name: 'James Mitchell',
-      title: 'Python Automation Expert',
-      rating: 4.7,
-      reviews: 98,
-      price: 38,
-      skills: ['Python', 'Selenium', 'API Testing', 'CI/CD'],
-      experience: '7 years',
-      availability: 'Tomorrow',
-      avatar: '/placeholder.svg'
-    }
+    
   ];
 
   const topics = [

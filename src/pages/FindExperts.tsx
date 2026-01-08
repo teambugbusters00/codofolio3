@@ -21,50 +21,7 @@ interface Expert {
 }
 
 const mockExperts: Expert[] = [
-  {
-    id: '1',
-    name: 'Sarah Chen',
-    title: 'Senior Python Developer',
-    skills: ['Python', 'Django', 'Machine Learning', 'Data Science'],
-    rating: 4.9,
-    reviews: 127,
-    pricePer15Min: 25,
-    avatar: '/placeholder.svg',
-    available: true,
-  },
-  {
-    id: '2',
-    name: 'Mike Johnson',
-    title: 'React Expert',
-    skills: ['React', 'TypeScript', 'Next.js', 'Redux'],
-    rating: 4.8,
-    reviews: 89,
-    pricePer15Min: 30,
-    avatar: '/placeholder.svg',
-    available: true,
-  },
-  {
-    id: '3',
-    name: 'Alex Rodriguez',
-    title: 'Full Stack Developer',
-    skills: ['JavaScript', 'Node.js', 'React', 'MongoDB'],
-    rating: 4.7,
-    reviews: 156,
-    pricePer15Min: 28,
-    avatar: '/placeholder.svg',
-    available: false,
-  },
-  {
-    id: '4',
-    name: 'Emma Wilson',
-    title: 'DevOps Engineer',
-    skills: ['AWS', 'Docker', 'Kubernetes', 'CI/CD'],
-    rating: 4.9,
-    reviews: 94,
-    pricePer15Min: 35,
-    avatar: '/placeholder.svg',
-    available: true,
-  },
+  
 ];
 
 const techStacks = [

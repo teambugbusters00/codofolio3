@@ -15,11 +15,11 @@ const footerLinks = {
     { label: "Leaderboard", href: "/community" },
   ],
   careers: [
-    { label: "Join Us", href: "#careers" },
-    { label: "Open Positions", href: "#careers" },
+    { label: "Join Us", href: "careers" },
+    { label: "Open Positions", href: "careers" },
   ],
   legal: [
-    { label: "Privacy & Terms", href: "#privacy" },
+    { label: "Privacy & Terms", href: "privacy" },
   ],
 };
 
@@ -35,7 +35,7 @@ export function Footer() {
           <div className="grid grid-cols-2 md:grid-cols-5 gap-8 lg:gap-12">
             {/* Product */}
             <div>
-              <h4 className="font-semibold mb-4">Product</h4>
+              <h4 className="font-semibold text-white mb-4">Product</h4>
               <ul className="space-y-3">
                 {footerLinks.product.map((link) => (
                   <li key={link.label}>
@@ -52,7 +52,7 @@ export function Footer() {
 
             {/* Community */}
             <div>
-              <h4 className="font-semibold mb-4">Community</h4>
+              <h4 className="font-semibold mb-4 text-white">Community</h4>
               <ul className="space-y-3">
                 {footerLinks.community.map((link) => (
                   <li key={link.label}>
@@ -69,7 +69,7 @@ export function Footer() {
 
             {/* Careers */}
             <div>
-              <h4 className="font-semibold mb-4">Careers</h4>
+              <h4 className="font-semibold mb-4 text-white">Careers</h4>
               <ul className="space-y-3">
                 {footerLinks.careers.map((link) => (
                   <li key={link.label}>
@@ -86,7 +86,7 @@ export function Footer() {
 
             {/* Privacy & Terms */}
             <div>
-              <h4 className="font-semibold mb-4">Privacy & Terms</h4>
+              <h4 className="font-semibold mb-4 text-white">Privacy & Terms</h4>
               <ul className="space-y-3">
                 {footerLinks.legal.map((link) => (
                   <li key={link.label}>
@@ -103,7 +103,7 @@ export function Footer() {
 
             {/* GitHub */}
             <div>
-              <h4 className="font-semibold mb-4">GitHub</h4>
+              <h4 className="font-semibold mb-4 text-white">GitHub</h4>
               <div className="flex items-center gap-3">
                 {socialLinks.map((social) => {
                   const Icon = social.icon;
