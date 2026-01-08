@@ -3,6 +3,9 @@ import { GlassCard } from "@/components/ui/glass-card";
 import { GradientText } from "@/components/ui/gradient-text";
 import { NeonButton } from "@/components/ui/neon-button";
 import { FloatingCodeBlocks } from "@/components/3d/FloatingCodeBlocks";
+import { account } from "@/lib/appwrite";
+import { Models } from "appwrite";
+import { useEffect, useState } from "react";
 import {
   User,
   Mail,
@@ -94,7 +97,33 @@ const sessionHistory = [
 ];
 
 export default function Profile() {
-  return (
+   const [user, setUser] = useState<Models.User<Models.Preferences> | null>(null);
+
+   useEffect(() => {
+     const getUser = async () => {
+       try {
+         const userData = await account.get();
+         setUser(userData);
+       } catch (error) {
+         console.error('Failed to get user:', error);
+       }
+     };
+     getUser();
+   }, []);
+
+   if (!user) {
+     return (
+       <MainLayout>
+         <Section spacing="lg">
+           <Container>
+             <div className="text-center">Loading...</div>
+           </Container>
+         </Section>
+       </MainLayout>
+     );
+   }
+
+   return (
     <MainLayout>
       <Section spacing="lg">
         <FloatingCodeBlocks />
@@ -106,12 +135,14 @@ export default function Profile() {
               <GlassCard className="text-center animate-fade-in">
                 <div className="relative inline-block mb-4">
                   <div className="w-24 h-24 rounded-full bg-gradient-primary flex items-center justify-center mx-auto">
-                    <span className="text-3xl font-bold text-primary-foreground">JD</span>
+                    <span className="text-3xl font-bold text-primary-foreground">
+                      {user.name ? user.name.charAt(0).toUpperCase() : 'U'}
+                    </span>
                   </div>
                   <div className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-green-500 border-2 border-background" />
                 </div>
-                <h1 className="text-xl font-bold mb-1">John Developer</h1>
-                <p className="text-muted-foreground mb-4">Full-Stack Developer</p>
+                <h1 className="text-xl font-bold mb-1">{user.name || 'User'}</h1>
+                <p className="text-muted-foreground mb-4">{user.email}</p>
                 <div className="flex flex-wrap gap-2 mb-4">
                   {skills.slice(0, 4).map((skill) => (
                     <span key={skill.name} className="px-3 py-1 text-xs bg-gradient-to-r from-primary/20 to-accent/20 text-primary rounded-full border border-primary/20">

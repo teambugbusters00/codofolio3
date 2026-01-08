@@ -1,6 +1,8 @@
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { account } from "@/lib/appwrite";
+import { Models } from "appwrite";
 import {
   Home,
   Users,
@@ -15,7 +17,9 @@ import {
   X,
   Building2,
   FileText,
-  Users2
+  Users2,
+  LogOut,
+  User
 } from "lucide-react";
 import { Container } from "./Container";
 import { NeonButton } from "@/components/ui/neon-button";
@@ -73,8 +77,31 @@ const moreLinks = [
 ];
 
 export function Header() {
-  const location = useLocation();
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+   const location = useLocation();
+   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+   const [user, setUser] = useState<Models.User<Models.Preferences> | null>(null);
+
+   useEffect(() => {
+     const getUser = async () => {
+       try {
+         const userData = await account.get();
+         setUser(userData);
+       } catch (error) {
+         setUser(null);
+       }
+     };
+     getUser();
+   }, []);
+
+   const handleLogout = async () => {
+     try {
+       await account.deleteSession('current');
+       setUser(null);
+       window.location.href = '/';
+     } catch (error) {
+       console.error('Logout failed:', error);
+     }
+   };
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 glass border-b border-border/50">
@@ -165,17 +192,48 @@ export function Header() {
 
           {/* Right side actions */}
           <div className="flex items-center gap-3">
-            <Link to="/auth" className="hidden sm:block">
-              <NeonButton variant="outline" size="sm">
-                <LogIn className="w-4 h-4 mr-2" />
-                Sign In
-              </NeonButton>
-            </Link>
-            <Link to="/auth" className="hidden sm:block">
-              <NeonButton variant="primary" size="sm">
-                Get Started
-              </NeonButton>
-            </Link>
+            {user ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <button className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-muted/50 transition-colors">
+                    <div className="w-8 h-8 rounded-full bg-gradient-primary flex items-center justify-center">
+                      <span className="text-sm font-bold text-primary-foreground">
+                        {user.name ? user.name.charAt(0).toUpperCase() : 'U'}
+                      </span>
+                    </div>
+                    <span className="hidden sm:block text-sm font-medium">
+                      {user.name || 'User'}
+                    </span>
+                  </button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-48">
+                  <DropdownMenuItem asChild>
+                    <Link to="/profile" className="flex items-center gap-2">
+                      <User className="w-4 h-4" />
+                      Profile
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={handleLogout} className="flex items-center gap-2">
+                    <LogOut className="w-4 h-4" />
+                    Logout
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <>
+                <Link to="/auth" className="hidden sm:block">
+                  <NeonButton variant="outline" size="sm">
+                    <LogIn className="w-4 h-4 mr-2" />
+                    Sign In
+                  </NeonButton>
+                </Link>
+                <Link to="/auth" className="hidden sm:block">
+                  <NeonButton variant="primary" size="sm">
+                    Get Started
+                  </NeonButton>
+                </Link>
+              </>
+            )}
 
             {/* Mobile menu button */}
             <button
@@ -203,26 +261,37 @@ export function Header() {
           >
             <Container>
               <nav className="py-4 space-y-1">
-                {navLinks.map((link) => {
-                  const isActive = location.pathname === link.path;
-                  const Icon = link.icon;
-                  return (
-                    <Link
-                      key={link.path}
-                      to={link.path}
-                      onClick={() => setMobileMenuOpen(false)}
-                      className={cn(
-                        "flex items-center gap-3 px-4 py-3 rounded-lg transition-colors",
-                        isActive
-                          ? "bg-primary/10 text-primary"
-                          : "text-muted-foreground hover:bg-muted/50 hover:text-foreground"
-                      )}
-                    >
-                      <Icon className="w-5 h-5" />
-                      {link.label}
-                    </Link>
-                  );
-                })}
+                  {navLinks.map((link) => {
+                    const Icon = link.icon;
+                    return (
+                      <div key={link.label}>
+                        <div className="flex items-center gap-3 px-4 py-3 text-muted-foreground">
+                          <Icon className="w-5 h-5" />
+                          {link.label}
+                        </div>
+                        <div className="ml-8 space-y-1">
+                          {link.subLinks.map((sub) => {
+                            const isActive = location.pathname === sub.path;
+                            return (
+                              <Link
+                                key={sub.path}
+                                to={sub.path}
+                                onClick={() => setMobileMenuOpen(false)}
+                                className={cn(
+                                  "flex items-center gap-3 px-4 py-2 rounded-lg transition-colors text-sm",
+                                  isActive
+                                    ? "bg-primary/10 text-primary"
+                                    : "text-muted-foreground hover:bg-muted/50 hover:text-foreground"
+                                )}
+                              >
+                                {sub.label}
+                              </Link>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    );
+                  })}
                 <div className="border-t border-border/20 my-2"></div>
                 {moreLinks.map((link) => {
                   const isActive = location.pathname === link.path;
@@ -245,16 +314,44 @@ export function Header() {
                   );
                 })}
                 <div className="pt-4 space-y-2">
-                  <Link to="/auth" className="block">
-                    <NeonButton variant="outline" size="md" className="w-full">
-                      Sign In
-                    </NeonButton>
-                  </Link>
-                  <Link to="/auth" className="block">
-                    <NeonButton variant="primary" size="md" className="w-full">
-                      Get Started
-                    </NeonButton>
-                  </Link>
+                  {user ? (
+                    <>
+                      <div className="flex items-center gap-3 px-4 py-2">
+                        <div className="w-8 h-8 rounded-full bg-gradient-primary flex items-center justify-center">
+                          <span className="text-sm font-bold text-primary-foreground">
+                            {user.name ? user.name.charAt(0).toUpperCase() : 'U'}
+                          </span>
+                        </div>
+                        <span className="text-sm font-medium">{user.name || 'User'}</span>
+                      </div>
+                      <Link to="/profile" className="block">
+                        <NeonButton variant="outline" size="md" className="w-full">
+                          Profile
+                        </NeonButton>
+                      </Link>
+                      <NeonButton
+                        variant="outline"
+                        size="md"
+                        className="w-full"
+                        onClick={handleLogout}
+                      >
+                        Logout
+                      </NeonButton>
+                    </>
+                  ) : (
+                    <>
+                      <Link to="/auth" className="block">
+                        <NeonButton variant="outline" size="md" className="w-full">
+                          Sign In
+                        </NeonButton>
+                      </Link>
+                      <Link to="/auth" className="block">
+                        <NeonButton variant="primary" size="md" className="w-full">
+                          Get Started
+                        </NeonButton>
+                      </Link>
+                    </>
+                  )}
                 </div>
               </nav>
             </Container>

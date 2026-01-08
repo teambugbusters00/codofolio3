@@ -1,3 +1,4 @@
+
 import { MainLayout, Container, Section } from "@/components/layout";
 import { GlassCard } from "@/components/ui/glass-card";
 import { GradientText } from "@/components/ui/gradient-text";
@@ -57,10 +58,10 @@ const Index = () => {
         {/* Main Services - Four Column Layout */}
         <Section spacing="lg" className="bg-muted/5">
           <Container>
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 max-w-7xl mx-auto">
               {/* Mentorship */}
               <div className="text-center">
-                <GlassCard className="p-8 h-full">
+                <GlassCard className="p-6 md:p-8 h-full">
                   <div className="w-20 h-20 rounded-full bg-gradient-primary flex items-center justify-center mx-auto mb-6">
                     <Users className="w-10 h-10 text-primary-foreground" />
                   </div>
@@ -85,7 +86,7 @@ const Index = () => {
 
               {/* Expert Help */}
               <div className="text-center">
-                <GlassCard className="p-8 h-full">
+                <GlassCard className="p-6 md:p-8 h-full">
                   <div className="w-20 h-20 rounded-full bg-gradient-accent flex items-center justify-center mx-auto mb-6">
                     <Code2 className="w-10 h-10 text-primary-foreground" />
                   </div>
@@ -110,7 +111,7 @@ const Index = () => {
 
               {/* Freelancing */}
               <div className="text-center">
-                <GlassCard className="p-8 h-full">
+                <GlassCard className="p-6 md:p-8 h-full">
                   <div className="w-20 h-20 rounded-full bg-gradient-primary flex items-center justify-center mx-auto mb-6">
                     <Briefcase className="w-10 h-10 text-primary-foreground" />
                   </div>
@@ -135,7 +136,7 @@ const Index = () => {
 
               {/* More */}
               <div className="text-center">
-                <GlassCard className="p-8 h-full">
+                <GlassCard className="p-6 md:p-8 h-full">
                   <div className="w-20 h-20 rounded-full bg-gradient-accent flex items-center justify-center mx-auto mb-6">
                     <MoreHorizontal className="w-10 h-10 text-primary-foreground" />
                   </div>
