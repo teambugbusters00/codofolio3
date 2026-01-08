@@ -8,14 +8,33 @@ import { Label } from "@/components/ui/label";
 import { FloatingCodeBlocks } from "@/components/3d/FloatingCodeBlocks";
 import { Github, Mail, Eye, EyeOff, User, GraduationCap } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { account } from "@/lib/appwrite";
+import { OAuthProvider } from "appwrite";
+import { useNavigate } from "react-router-dom";
 
 type AuthMode = "login" | "signup";
 type UserRole = "learner" | "mentor";
 
 export default function Auth() {
-  const [mode, setMode] = useState<AuthMode>("login");
-  const [role, setRole] = useState<UserRole>("learner");
-  const [showPassword, setShowPassword] = useState(false);
+   const [mode, setMode] = useState<AuthMode>("login");
+   const [role, setRole] = useState<UserRole>("learner");
+   const [showPassword, setShowPassword] = useState(false);
+   const [isLoading, setIsLoading] = useState(false);
+   const navigate = useNavigate();
+
+   const handleOAuth = async (provider: string) => {
+     try {
+       setIsLoading(true);
+       await account.createOAuth2Session(
+         provider as any,
+         `${window.location.origin}/dashboard`,
+         `${window.location.origin}/auth`
+       );
+     } catch (error) {
+       console.error(`${provider} login failed:`, error);
+       setIsLoading(false);
+     }
+   };
 
   return (
     <MainLayout showFooter={false}>
@@ -64,9 +83,25 @@ export default function Auth() {
               </div>
 
               {/* OAuth */}
-              <NeonButton variant="outline" size="lg" className="w-full mb-4">
+              <NeonButton
+                variant="outline"
+                size="lg"
+                className="w-full mb-4"
+                onClick={() => handleOAuth(OAuthProvider.Github)}
+                disabled={isLoading}
+              >
                 <Github className="w-5 h-5 mr-2" />
                 Continue with GitHub
+              </NeonButton>
+              <NeonButton
+                variant="outline"
+                size="lg"
+                className="w-full mb-4"
+                onClick={() => handleOAuth(OAuthProvider.Google)}
+                disabled={isLoading}
+              >
+                <span className="w-5 h-5 mr-2 flex items-center justify-center bg-red-500 text-white rounded text-xs font-bold">G</span>
+                Continue with Google
               </NeonButton>
 
               <div className="relative my-6">
